@@ -1,7 +1,9 @@
-defmodule Discuss.TopicController do
+defmodule DiscussWeb.TopicController do
   use DiscussWeb, :controller
 
-  def new() do
+  def new(conn, attrs) do
+     Plug.Conn.send_resp(conn, 200, "woli mondo")
+
 
   end
 end
