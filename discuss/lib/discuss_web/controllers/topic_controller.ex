@@ -19,7 +19,11 @@ defmodule DiscussWeb.TopicController do
     changeset = Topic.changeset(%Topic{}, topic)
 
     case Discuss.Repo.insert(changeset) do
-      {:ok, post} -> IO.inspect(post)
+      {:ok, post} ->
+        conn
+          |> put_flash(:info, "Topic Created")
+          |> redirect(to: Routes.topic_path(conn, :index))
+          # Reminder that topic_path is function of Routes(Routes.topic_path)
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
 
