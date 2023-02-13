@@ -37,6 +37,7 @@
       import Phoenix.Controller,
         only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
 
+      #For the use of every 'topic_path' we call
       alias DiscussWeb.Router.Helpers, as: Routes
 
       # Include shared imports and aliases for views
