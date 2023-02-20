@@ -8,7 +8,8 @@
 import Config
 
 config :discuss,
-  ecto_repos: [Discuss.Repo]
+  ecto_repos: [Discuss.Repo],
+  ssl_opts: [verify: :verify_none]
 
 # Configures the endpoint
 config :discuss, DiscussWeb.Endpoint,
@@ -54,8 +55,10 @@ import_config "#{config_env()}.exs"
 #Auth configuration via Ueberauth
 config :ueberauth, Ueberauth,
   providers: [
-    github: {Ueberauth.Strategy.Github, []}
+    github: {Ueberauth.Strategy.Github, [default_scope: "user,public_repo,notifications"]}
   ]
+
+#just added ""[default_scope: "user,public_repo,notifications"]""
 
   # config :ueberauth, Ueberauth.Strategy.Github.OAuth,
   # client_id: System.get_env("0b9377a3dc4697b23317"),
@@ -63,4 +66,4 @@ config :ueberauth, Ueberauth,
 
   config :ueberauth, Ueberauth.Strategy.Github.OAuth,
   client_id: "0b9377a3dc4697b23317",
-  client_secret: "7fb0cf0c1b2d0861c6082e02afca25e32fd40220"
+  client_secret: "d05fc52037a07ba53952a1830be603b0fdbf2f15"
