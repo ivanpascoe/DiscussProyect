@@ -4,21 +4,40 @@ defmodule DiscussWeb.AuthController do
 
   plug Ueberauth
 
+  alias DiscussWeb.User
+  alias Discuss.Repo
 
- #Code taken from other proyect by hangster
-  def callback(%{assigns: assigns} = conn, %{"provider" => provider} = params) do
-
-  IO.puts ("1---------------")
-  IO.inspect(conn)
-  IO.puts ("2---------------")
-  IO.inspect(params)
-  IO.puts ("end---------------")
+  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, %{"provider" => provider} = params) do
 
 
-  #(%{assigns: assigns} = conn, %{"provider" => provider} = params) do
-    #user_params = %{token: auth.credentials.token, email: auth.info.email, provider: provider}
-    #changeset = User.changeset(%User{}, user_params)
+    user_params = %{token: auth.credentials.token, email: auth.info.email, provider: provider}
+    changeset = User.changeset(%User{}, user_params)
 
-   # sign_in(conn, changeset)
+    sign_in(conn,changeset)
+
+  end
+
+  defp sign_in(conn, changeset) do
+    case insert_or_update_user(changeset) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "Wellcome Back!")
+        |> put_session(:user_id, user.id)
+        |> redirect(to: Routes.topic_path(conn, :index))
+
+      {:error, _reason} ->
+        conn
+        |> put_flash(:error, "Error signing in")
+        |> redirect(to: Routes.topic_path(conn, :index))
+    end
+  end
+
+  defp insert_or_update_user(changeset) do
+    case Repo.get_by(User, email: changeset.changes.email) do
+      nil ->
+        Repo.insert(changeset)
+      user ->
+        {:ok, user}
+    end
   end
 end
