@@ -7,36 +7,18 @@ defmodule DiscussWeb.AuthController do
 
  #Code taken from other proyect by hangster
   def callback(%{assigns: assigns} = conn, %{"provider" => provider} = params) do
-    IO.puts("__________________________________")
-    IO.inspect(conn)
-    IO.puts("__________________________________")
-    IO.inspect(params)
 
-    auth =
-      case assigns do
-        %{ueberauth_auth: ueberauth_auth} -> ueberauth_auth
-        %{ueberauth_failure: ueberauth_failure} -> ueberauth_failure
-      end
+  IO.puts ("1---------------")
+  IO.inspect(conn)
+  IO.puts ("2---------------")
+  IO.inspect(params)
+  IO.puts ("end---------------")
 
-      IO.puts("__________________________________")
-      IO.inspect(auth)
 
-    user_params = %{token: auth.credentials.token, email: auth.info.email, provider: provider}
-    # changeset = User.changeset(%User{}, user_params)
+  #(%{assigns: assigns} = conn, %{"provider" => provider} = params) do
+    #user_params = %{token: auth.credentials.token, email: auth.info.email, provider: provider}
+    #changeset = User.changeset(%User{}, user_params)
 
-    # signIn(conn, changeset)
+   # sign_in(conn, changeset)
   end
-
-  # def callback(%{assigns: %{ueberauth_auth: auth}} = conn, params) do
-
-  #  IO.puts("__________________________________")
-  #  IO.inspect(auth)
-  #  IO.puts("__________________________________")
-  #  IO.inspect(conn)
-  #  IO.puts("__________________________________")
-  #  IO.inspect(params)
-
-  #   conn
-  # end
-
 end

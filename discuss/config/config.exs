@@ -56,13 +56,10 @@ import_config "#{config_env()}.exs"
 config :ueberauth, Ueberauth,
   providers: [
     github: {Ueberauth.Strategy.Github, [default_scope: "user,public_repo,notifications"]}
-  ]
+  ],
+  ignores_csrf_attack: true
 
-#just added ""[default_scope: "user,public_repo,notifications"]""
 
-  # config :ueberauth, Ueberauth.Strategy.Github.OAuth,
-  # client_id: System.get_env("0b9377a3dc4697b23317"),
-  # client_secret: System.get_env("7fb0cf0c1b2d0861c6082e02afca25e32fd40220")
 
   config :ueberauth, Ueberauth.Strategy.Github.OAuth,
   client_id: "0b9377a3dc4697b23317",
