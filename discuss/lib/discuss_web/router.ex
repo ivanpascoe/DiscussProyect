@@ -8,6 +8,8 @@ defmodule DiscussWeb.Router do
     plug :put_root_layout, {DiscussWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Discuss.Plugs.SetUser
+
     # plug Ueberauth
   end
 
