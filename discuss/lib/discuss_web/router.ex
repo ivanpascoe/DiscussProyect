@@ -29,6 +29,8 @@ defmodule DiscussWeb.Router do
   end
 
   scope "/auth", DiscussWeb do
+    #"flash not fetched" issue fixed. Always specify the pipe route
+    pipe_through :browser
 
 
     get "/:provider", AuthController, :request
