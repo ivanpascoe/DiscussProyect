@@ -14,7 +14,12 @@ defmodule DiscussWeb.AuthController do
     changeset = User.changeset(%User{}, user_params)
 
     sign_in(conn,changeset)
+  end
 
+  def signout(conn, _params) do
+    conn
+    |> configure_session(drop: true)
+    |> redirect(to: Routes.topic_path(conn, :index))
   end
 
   defp sign_in(conn, changeset) do

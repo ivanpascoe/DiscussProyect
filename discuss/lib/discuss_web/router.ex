@@ -34,7 +34,7 @@ defmodule DiscussWeb.Router do
     #"flash not fetched" issue fixed. Always specify the pipe route
     pipe_through :browser
 
-
+    get "/signout", AuthController, :signout
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
   end
