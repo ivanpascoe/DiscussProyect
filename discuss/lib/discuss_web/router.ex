@@ -25,7 +25,7 @@ defmodule DiscussWeb.Router do
     # put "/topics/:id", TopicController, :update
 
     resources "/", TopicController
-    #It takes charge of building the routes according to conventions
+    #"resources" takes charge of building the routes according to conventions
   end
 
   scope "/auth", DiscussWeb do

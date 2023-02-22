@@ -1,7 +1,7 @@
-defmodule DiscussWeb.Topic do
+defmodule Discuss.Topic do
   use Ecto.Schema
   import Ecto.Changeset
-  alias DiscussWeb.Topic
+  alias Discuss.Topic
   schema "topics" do
     field :title, :string
 
