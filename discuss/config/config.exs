@@ -62,3 +62,4 @@ config :ueberauth, Ueberauth,
   config :ueberauth, Ueberauth.Strategy.Github.OAuth,
   client_id: (System.get_env("CLIENT_ID") || raise "Falta variable CLIENT_ID"),
   client_secret: (System.get_env("CLIENT_SECRET") || raise "Falta variable CLIENT_SECRET")
+  # CLIENT_ID and SECRET updated to to env variables
