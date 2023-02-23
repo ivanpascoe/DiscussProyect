@@ -59,8 +59,6 @@ config :ueberauth, Ueberauth,
   ]
   # "ignores_csrf_attack: true"  removed
 
-
-
   config :ueberauth, Ueberauth.Strategy.Github.OAuth,
-  client_id: "0b9377a3dc4697b23317",
-  client_secret: "d05fc52037a07ba53952a1830be603b0fdbf2f15"
+  client_id: (System.get_env("CLIENT_ID") || raise "Falta variable CLIENT_ID"),
+  client_secret: (System.get_env("CLIENT_SECRET") || raise "Falta variable CLIENT_SECRET")
