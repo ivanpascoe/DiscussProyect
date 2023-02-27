@@ -17,16 +17,10 @@ defmodule Discuss.Plugs.SetUser do
 
     cond do
       user = user_id && Repo.get(User, user_id) ->
-        result = assign(conn, :user, user)
-        IO.puts("1________________________________")
-        IO.inspect(conn.assigns)
-        result
+        assign(conn, :user, user)
 
       true ->
-        result = assign(conn, :user, nil)
-        IO.puts("1________________________________")
-        IO.inspect(conn.assigns)
-        result
+        assign(conn, :user, nil)
     end
 
     # cond do
