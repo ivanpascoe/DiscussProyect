@@ -4,6 +4,8 @@ defmodule DiscussWeb.TopicController do
   alias Discuss.Topic
   alias Discuss.Repo
 
+  plug DiscussWeb.Plugs.RequireAuth when action in [:new, :create, :update, :delete]
+
   def index(conn, _params) do
     IO.puts("____________________________________")
     IO.inspect(conn.assigns)
