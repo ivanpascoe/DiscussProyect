@@ -7,26 +7,28 @@ defmodule DiscussWeb.TopicController do
   plug DiscussWeb.Plugs.RequireAuth when action in [:new, :create, :update, :delete]
   plug :check_topic_owner when action in [:edit, :delete, :update]
   def index(conn, _params) do
-    IO.puts("____________________________________")
-    IO.inspect(conn.assigns)
+
     topics = Repo.all(Topic)
     render(conn, "index.html", topics: topics)
+  end
+
+  def show(conn, %{"id" => topic_id}) do
+    topic = Repo.get!(Topic, topic_id)
+    render conn, "show.html", topic: topic
   end
 
   def new(conn, _params) do
     changeset = Topic.changeset(%Topic{}, %{})
     render(conn, "new.html", changeset: changeset)
-     #Plug.Conn.send_resp(conn, 200, "woli mondo")
+
   end
 
   def create(conn, %{"topic" => topic}) do
-    # changeset = Topic.changeset(%Topic{}, topic)
-    changeset = conn.assigns.user
-      |> Ecto.build_assoc(:topics)
-      |> Topic.changeset(topic)
 
-      IO.puts("changeset________________________________")
-      IO.inspect(changeset)
+    changeset =
+      conn.assigns.user
+      |> build_assoc(:topics)
+      |> Topic.changeset(topic)
 
     case Repo.insert(changeset) do
       {:ok, post} ->
@@ -44,9 +46,7 @@ defmodule DiscussWeb.TopicController do
     topic = Repo.get(Topic, topic_id)
     changeset = Topic.changeset(topic)
 
-    # IO.puts("--------------")
-    # IO.inspect(changeset.data)
-    # IO.puts("--------------")
+
 
     render conn, "edit.html", changeset: changeset, topic: topic
   end
