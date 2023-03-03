@@ -1,7 +1,7 @@
 defmodule Discuss.Comment do
   use Ecto.Schema
   import Ecto.Changeset
-
+  alias Discuss.Comment
   schema "comments" do
     field :content, :string
     belongs_to :user, Discuss.User
@@ -10,9 +10,9 @@ defmodule Discuss.Comment do
     timestamps()
   end
 
-  def changeset(struct, params, \\ %{}) do
+  def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params. [:content])
+    |> cast(params, [:content])
     |> validate_required([:content])
   end
 end

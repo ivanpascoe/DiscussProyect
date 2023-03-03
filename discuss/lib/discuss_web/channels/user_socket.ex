@@ -8,7 +8,10 @@ defmodule DiscussWeb.UserSocket do
 
   ## Channels
 
-  channel "user:*", DiscussWeb.UserChannel
+  channel "comments:*", DiscussWeb.CommentsChannel
+
+  transport :websocket, Phoenix.Transports.WebSocket
+
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
