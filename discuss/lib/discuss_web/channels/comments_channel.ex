@@ -33,7 +33,14 @@ defmodule DiscussWeb.CommentsChannel do
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   @impl true
-  def handle_in("ping", payload, socket) do
+  def handle_in(name, payload, socket) do
+    IO.puts("name_____________________________________")
+    IO.inspect(name)
+    IO.puts("payload_________________________________")
+    IO.inspect(payload)
+    IO.puts("socket__________________________________")
+    IO.inspect(socket)
+    IO.puts("end_____________________________________")
     {:reply, {:ok, payload}, socket}
   end
 
