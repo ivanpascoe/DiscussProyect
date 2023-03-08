@@ -1,47 +1,32 @@
 defmodule DiscussWeb.CommentsChannel do
   use DiscussWeb, :channel
-  alias Discuss.Posts.Topic
+
+  alias Discuss.Topic
+  alias Discuss.Repo
 
   @impl true
-  # def join("comments:" <> topic_id, _params, socket) do
-  #   topic_id = String.to_integer(topic_id)
+  def join("comments:" <> topic_id, _params, socket) do
+    topic_id = String.to_integer(topic_id)
+    topic = Repo.get(Topic, topic_id)
 
-  #   topic = Topic
-  #   |> Repo.get(topic_id)
-  #   |> Repo.preload(comments: [:user])
+    IO.inspect(topic_id)
+    IO.puts("topic_id ^^^^___________________")
+    IO.inspect(topic)
+    IO.puts("topic ^^^^___________________")
 
-  #   {:ok, %{comments: topic.comments}, assign(socket, :topic, topic)}
-  # end
+    # topic = Topic
+    # |> Repo.get(topic_id)
+    # |> Repo.preload(comments: [:user])
 
-  def join(name, payload, socket) do
-    IO.puts("name_____________________________________")
-    IO.inspect(name)
-    IO.puts("payload_________________________________")
-    IO.inspect(payload)
-    IO.puts("socket__________________________________")
-    IO.inspect(socket)
-    IO.puts("end_____________________________________")
-    {:ok, %{hey: "mathafacka"}, socket}
-
-    # if authorized?(payload) do
-    #   {:ok, socket}
-    # else
-    #   {:error, %{reason: "unauthorized"}}
-
+    {:ok, %{}, socket}
   end
 
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   @impl true
-  def handle_in(name, payload, socket) do
-    IO.puts("name_____________________________________")
-    IO.inspect(name)
-    IO.puts("payload_________________________________")
-    IO.inspect(payload)
-    IO.puts("socket__________________________________")
-    IO.inspect(socket)
-    IO.puts("end_____________________________________")
-    {:reply, {:ok, payload}, socket}
+  def handle_in(_name, %{"content" => content}, socket) do
+
+    {:reply, :ok, socket}
   end
 
   # It is also common to receive messages from the client and
