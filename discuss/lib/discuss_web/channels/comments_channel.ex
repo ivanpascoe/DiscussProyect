@@ -1,32 +1,40 @@
 defmodule DiscussWeb.CommentsChannel do
   use DiscussWeb, :channel
 
-  alias Discuss.Topic
+
+  alias Discuss.{Topic, Comments}
   alias Discuss.Repo
+
 
   @impl true
   def join("comments:" <> topic_id, _params, socket) do
     topic_id = String.to_integer(topic_id)
     topic = Repo.get(Topic, topic_id)
 
-    IO.inspect(topic_id)
-    IO.puts("topic_id ^^^^___________________")
-    IO.inspect(topic)
-    IO.puts("topic ^^^^___________________")
+    {:ok, %{}, assign(socket, :topic, topic)}
 
     # topic = Topic
     # |> Repo.get(topic_id)
     # |> Repo.preload(comments: [:user])
-
-    {:ok, %{}, socket}
   end
 
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   @impl true
   def handle_in(_name, %{"content" => content}, socket) do
+    topic = socket.assigns.topic
 
-    {:reply, :ok, socket}
+    changeset = topic
+      |> Ecto.build_assoc(:comments)
+      |> Comments.changeset(%{content: content})
+
+    case Repo.insert(changeset) do
+      {:ok, comment} ->
+        {:reply, :ok, socket}
+      {:error, _reason} ->
+        {:reply, {:error, %{errors: changeset}}, socket}
+    end
+
   end
 
   # It is also common to receive messages from the client and

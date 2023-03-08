@@ -1,7 +1,7 @@
-defmodule Discuss.Comment do
+defmodule Discuss.Comments do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Discuss.Comment
+
   schema "comments" do
     field :content, :string
     belongs_to :user, Discuss.User
