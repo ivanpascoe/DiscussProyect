@@ -27,7 +27,7 @@ defmodule DiscussWeb.UserSocket do
     IO.inspect(token)
     IO.puts("----Token-----")
       # max_age: 1209600 is equivalent to two weeks in seconds
-    case Phoenix.Token.verify(socket, "key", token, max_age: 1_209_600) do
+    case Phoenix.Token.verify(socket, "key", token, max_age: 1_209_600) do # "key" comes from L15 of root.html.heex
         {:ok, user_id} ->
           {:ok, assign(socket, :user_id, user_id)}
 
