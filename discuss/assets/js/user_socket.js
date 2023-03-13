@@ -59,7 +59,7 @@ socket.connect()
 const createSocket = (topicId) => {
   let channel = socket.channel(`comments:${topicId}`, {})  //aqui estamos usando un poco de ES6 javascript
   channel.join()
-    .receive("ok", resp => { renderComments(resp.comments); })
+    .receive("ok", resp => { console.log("Looks goode", resp) ; renderComments(resp.comments); })
     .receive("error", resp => { console.log("Unable to join", resp) });
 
   channel.on(`comments:${topicId}:new`, renderComment)
@@ -85,9 +85,17 @@ function renderComment(event) {
 }
 
 function commentTemplate(comment) {
+  let email = "Anónimo";
+  if (comment.user) {
+    email = comment.user.email;
+  }
+
   return `
       <li class="collection-item">
         ${comment.content}
+        <div class="secondary-content">
+          ${email}
+        </div>
       </li>
      `;
 }
