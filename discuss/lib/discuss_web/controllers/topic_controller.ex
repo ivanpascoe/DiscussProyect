@@ -7,7 +7,7 @@ defmodule DiscussWeb.TopicController do
   plug DiscussWeb.Plugs.RequireAuth when action in [:new, :create, :update, :delete]
   plug :check_topic_owner when action in [:edit, :delete, :update]
   def index(conn, _params) do
-
+    IO.inspect(conn)
     topics = Repo.all(Topic)
     render(conn, "index.html", topics: topics)
   end
@@ -48,6 +48,7 @@ defmodule DiscussWeb.TopicController do
 
 
 
+
     render conn, "edit.html", changeset: changeset, topic: topic
   end
 
@@ -66,7 +67,8 @@ defmodule DiscussWeb.TopicController do
   end
 
   def delete(conn, %{"id" => topic_id}) do
-    Repo.get!(Topic, topic_id) |> Repo.delete!()
+    Repo.get!(Topic, topic_id)
+    |> Repo.delete!()
 
     conn
         |> put_flash(:info, "Topic Deleted")

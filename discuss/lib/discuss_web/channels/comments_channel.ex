@@ -13,11 +13,10 @@ defmodule DiscussWeb.CommentsChannel do
     |> Repo.get(topic_id)
     |> Repo.preload(comments: [:user])
 
+
     {:ok, %{comments: topic.comments}, assign(socket, :topic, topic)}
 
-    # topic = Topic
-    # |> Repo.get(topic_id)
-    # |> Repo.preload(comments: [:user])
+
   end
 
   # Channels can be used in a request/response fashion
