@@ -24,8 +24,7 @@ defmodule DiscussWeb.UserSocket do
   # performing token verification on connect.
   @impl true
   def connect(%{"token" => token}, socket, _connect_info) do
-    IO.inspect(token)
-    IO.puts("----Token-----")
+
       # max_age: 1209600 is equivalent to two weeks in seconds
     case Phoenix.Token.verify(socket, "key", token, max_age: 1_209_600) do # "key" comes from L15 of root.html.heex
         {:ok, user_id} ->
