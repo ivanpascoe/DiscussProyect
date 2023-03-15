@@ -21,14 +21,14 @@ Once you have your own CLIENT_SECRET and CLIENT_ID there are two ways to set the
 
 1. Simply add your tokens to a .env file and save it.
    It would look like this:
-   CLIENT_SECRET="1435dfghk1324qjg346" 
-   CLIENT_ID="dfgfh8q69256256y"
+   `CLIENT_SECRET="1435dfghk1324qjg346"`
+   `CLIENT_ID="dfgfh8q69256256y"`
 
    Don't forget to add your .env file to the .gitignore
 
 2. Set your env variables manually using the export command in your temninal.
   
-  export CLIENT_SECRET="1435dfghk1324qjg346"
+  `export CLIENT_SECRET="1435dfghk1324qjg346"`
 
 This should be enough to get you ready to go. 
    
